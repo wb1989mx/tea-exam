@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#E1B98F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="评茶考核">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>高级评茶员感官操作流程考核系统</title>
+</head>
+<body>
+<div class="app" id="app">
+  <!-- 顶部标题栏 -->
+  <header class="topbar">
+    <div class="topbar-title" id="topbarTitle">评茶考核</div>
+    <div class="topbar-sub" id="topbarSub">感官操作流程</div>
+  </header>
+
+  <!-- 进度指示器 -->
+  <nav class="stepper" id="stepper">
+    <div class="step active" data-s="0"><span class="step-dot">1</span><span class="step-label">选题</span></div>
+    <div class="step" data-s="1"><span class="step-dot">2</span><span class="step-label">器具</span></div>
+    <div class="step" data-s="2"><span class="step-dot">3</span><span class="step-label">规范</span></div>
+    <div class="step" data-s="3"><span class="step-dot">4</span><span class="step-label">流程</span></div>
+    <div class="step" data-s="4"><span class="step-dot">5</span><span class="step-label">结果</span></div>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="content">
+
+    <!-- 环节0：选题 -->
+    <section class="page active" id="page0">
+      <div class="card">
+        <h2 class="card-title">选择考核茶样</h2>
+        <p class="card-desc">点击选择要考核的茶类，部分茶类支持多种审评方法</p>
+        <div class="tea-grid" id="teaGrid"></div>
+      </div>
+      <div class="card" id="methodCard" style="display:none;">
+        <h2 class="card-title">选择审评方法</h2>
+        <p class="card-desc">依据 GB/T 23776 标准，选择审评器具与方法</p>
+        <div class="method-row" id="methodRow"></div>
+      </div>
+      <div class="bottom-space"></div>
+    </section>
+
+    <!-- 环节1：器具选配 -->
+    <section class="page" id="page1">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">器具选配</h2>
+          <span class="tag tag-tea" id="teaTag1"></span>
+        </div>
+        <div class="info-bar" id="toolInfo"></div>
+        <div class="progress-row">
+          <span class="progress-label">已选</span>
+          <div class="progress-track"><div class="progress-fill" id="toolProg"></div></div>
+          <span class="progress-count" id="toolCnt">0/0</span>
+        </div>
+        <div class="tool-grid" id="toolGrid"></div>
+        <div class="feedback" id="toolFb"></div>
+      </div>
+      <div class="bottom-space"></div>
+    </section>
+
+    <!-- 环节2：操作规范 -->
+    <section class="page" id="page2">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">操作规范</h2>
+          <span class="tag tag-norm" id="teaTag2"></span>
+        </div>
+        <div class="info-bar" id="normInfo"></div>
+        <div id="normContainer"></div>
+        <div class="feedback" id="normFb"></div>
+      </div>
+      <div class="bottom-space"></div>
+    </section>
+
+    <!-- 环节3：流程排序 -->
+    <section class="page" id="page3">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">流程排序</h2>
+          <div class="timer-box">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-text" id="orderTimer">00:00</span>
+          </div>
+        </div>
+        <div class="zone-label">你的操作顺序（点击步骤添加，点击已排序步骤移除）</div>
+        <div class="order-zone" id="orderZone"></div>
+        <div class="zone-label">待排序步骤</div>
+        <div class="pool-zone" id="poolZone"></div>
+        <div class="feedback" id="orderFb"></div>
+      </div>
+      <div class="bottom-space"></div>
+    </section>
+
+    <!-- 环节4：评分结果 -->
+    <section class="page" id="page4">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">考核结果</h2>
+          <span class="tag tag-score" id="teaTag4"></span>
+        </div>
+        <div class="score-hero" id="scoreHero"></div>
+      </div>
+      <div class="card">
+        <h3 class="section-title">各环节得分</h3>
+        <div id="scoreDetail"></div>
+      </div>
+      <div class="card">
+        <h3 class="section-title">能力雷达图</h3>
+        <canvas id="radarCanvas" class="radar-canvas"></canvas>
+      </div>
+      <div class="card">
+        <h3 class="section-title">考核评语</h3>
+        <div class="comment-box" id="finalComment"></div>
+      </div>
+      <div class="bottom-space"></div>
+    </section>
+
+  </main>
+
+  <!-- 底部操作栏 -->
+  <footer class="bottombar" id="bottombar">
+    <button class="btn btn-ghost" id="btnBack" style="display:none;">返回</button>
+    <button class="btn btn-primary" id="btnNext" disabled>开始考核</button>
+  </footer>
+
+  <!-- Toast提示 -->
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/radar.js"></script>
+<script src="js/app.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

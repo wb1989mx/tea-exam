@@ -1,0 +1,33 @@
+{
+  "name": "高级评茶员感官操作流程考核系统",
+  "short_name": "评茶考核",
+  "description": "依据GB/T 23776标准的高级评茶员感官操作流程考核系统，支持多茶类题库与双审评方法",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F3EE",
+  "theme_color": "#E1B98F",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false
+}
