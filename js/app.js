@@ -137,7 +137,12 @@ function renderTools() {
   $('toolFb').textContent = '';
   var grid = $('toolGrid');
   grid.innerHTML = '';
-  TOOL_LIB.forEach(function(t) {
+  /* 审评杯和盖碗固定在前，其他器具随机排列 */
+  var fixedTools = TOOL_LIB.filter(function(t) { return t.id === 'sb' || t.id === 'gw'; });
+  var otherTools = TOOL_LIB.filter(function(t) { return t.id !== 'sb' && t.id !== 'gw'; });
+  otherTools.sort(function() { return Math.random() - 0.5; });
+  var displayTools = fixedTools.concat(otherTools);
+  displayTools.forEach(function(t) {
     var d = document.createElement('div');
     d.className = 'tool-item';
     d.innerHTML = '<div class="t-icon">' + t.icon + '</div><div class="t-name">' + t.name + '</div><div class="t-desc">' + t.desc + '</div>';
@@ -233,13 +238,16 @@ function submitNorms() {
 
 /* ---------- 环节3：流程排序 ---------- */
 var orderSteps = [];
+var stdSteps = [];  /* 保存标准顺序，用于判分 */
 
 function renderOrder() {
   var tea = getTea();
   $('teaTag3') && ($('teaTag3').textContent = tea.name + ' · ' + getMethodName());
   $('topbarTitle').textContent = '流程排序';
   $('topbarSub').textContent = tea.name + ' · ' + getMethodName();
-  orderSteps = genSteps(state.tea, state.method);
+  stdSteps = genSteps(state.tea, state.method);
+  /* 打乱顺序用于显示，stdSteps 保留标准答案用于判分 */
+  orderSteps = stdSteps.slice().sort(function() { return Math.random() - 0.5; });
   state.order = [];
   state.orderStart = Date.now();
   if (state.orderTimer) clearInterval(state.orderTimer);
@@ -278,18 +286,18 @@ function renderOrderZones() {
 }
 
 function submitOrder() {
-  if (state.order.length < orderSteps.length) {
+  if (state.order.length < stdSteps.length) {
     $('orderFb').className = 'feedback show fb-warn';
-    $('orderFb').innerHTML = '还有 ' + (orderSteps.length - state.order.length) + ' 步未排列，请完成后再提交。';
+    $('orderFb').innerHTML = '还有 ' + (stdSteps.length - state.order.length) + ' 步未排列，请完成后再提交。';
     return;
   }
   if (state.orderTimer) clearInterval(state.orderTimer);
   var correct = 0, details = [];
-  for (var i = 0; i < orderSteps.length; i++) {
-    if (state.order[i].id === orderSteps[i].id) correct++;
-    else details.push('第' + (i + 1) + '步应为「' + orderSteps[i].name + '」');
+  for (var i = 0; i < stdSteps.length; i++) {
+    if (state.order[i].id === stdSteps[i].id) correct++;
+    else details.push('第' + (i + 1) + '步应为「' + stdSteps[i].name + '」');
   }
-  var pct = Math.round(correct / orderSteps.length * 100);
+  var pct = Math.round(correct / stdSteps.length * 100);
   var used = Math.floor((Date.now() - state.orderStart) / 1000);
   var timeStr = String(Math.floor(used / 60)).padStart(2, '0') + ':' + String(used % 60).padStart(2, '0');
   $('orderFb').className = 'feedback show ' + (pct >= 90 ? 'fb-success' : 'fb-warn');
@@ -323,10 +331,10 @@ function calcScores() {
 
   /* 流程分 */
   var oCorrect = 0;
-  for (var i = 0; i < orderSteps.length; i++) {
-    if (state.order[i] && state.order[i].id === orderSteps[i].id) oCorrect++;
+  for (var i = 0; i < stdSteps.length; i++) {
+    if (state.order[i] && state.order[i].id === stdSteps[i].id) oCorrect++;
   }
-  var oTotal = orderSteps.length;
+  var oTotal = stdSteps.length;
   var oPct = Math.round(oCorrect / oTotal * 100);
   var used = Math.floor((Date.now() - state.orderStart) / 1000);
   state.scores.order = { correct: oCorrect, total: oTotal, pct: oPct, time: used };
