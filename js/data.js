@@ -48,6 +48,42 @@ var TEA_LIB = {
     methods: ['cup'],
     cupTime: '5分钟',
     desc: '芽叶连枝白茶'
+  },
+  biluochun: {
+    name: '碧螺春',
+    cat: '绿茶',
+    type: '卷曲型',
+    icon: '🍃',
+    methods: ['cup'],
+    cupTime: '4分钟',
+    desc: '卷曲形炒青绿茶'
+  },
+  fenghuangdancong: {
+    name: '凤凰单丛',
+    cat: '乌龙茶',
+    type: '条形',
+    icon: '🌿',
+    methods: ['cup', 'gaiwan'],
+    cupTime: '5分钟',
+    desc: '条形乌龙茶，高香型'
+  },
+  gongfuhongcha: {
+    name: '工夫红茶',
+    cat: '红茶',
+    type: '条形',
+    icon: '🫖',
+    methods: ['cup'],
+    cupTime: '5分钟',
+    desc: '条形工夫红茶'
+  },
+  zhengshanxiaozhong: {
+    name: '正山小种',
+    cat: '红茶',
+    type: '条形',
+    icon: '🔴',
+    methods: ['cup'],
+    cupTime: '5分钟',
+    desc: '世界红茶鼻祖，松烟香'
   }
 };
 
