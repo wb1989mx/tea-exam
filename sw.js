@@ -3,7 +3,7 @@
  * 评茶员考核系统 PWA
  * ============================================================ */
 
-var CACHE_NAME = 'tea-exam-v1';
+var CACHE_NAME = 'tea-exam-v3';
 var ASSETS = [
   './',
   './index.html',
