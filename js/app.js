@@ -103,7 +103,7 @@ function renderMethodRow() {
   var row = $('methodRow');
   row.innerHTML = '';
   var methods = [
-    { key: 'cup', name: '柱形杯法', desc: '150mL审评杯 · 投茶3g\n沸水冲泡1次\n颗粒型6min / 条形5min' },
+    { key: 'cup', name: '柱形杯法', desc: '150mL审评杯 · 投茶3g\n沸水冲泡1次' },
     { key: 'gaiwan', name: '盖碗法', desc: '110mL盖碗 · 投茶5g\n沸水冲泡3次\n出汤：2→3→5min' }
   ];
   methods.forEach(function(m) {

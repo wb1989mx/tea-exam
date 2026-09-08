@@ -109,7 +109,7 @@ var TOOL_LIB = [
   { id: 'js',  name: '计时器', icon: '⏱',  cup: true,  gaiwan: true,  desc: '精确到秒，控制冲泡时间' },
   { id: 'wd',  name: '温度计', icon: '🌡',  cup: false, gaiwan: false, desc: '标准统一沸水冲泡，无需测温' },
   { id: 'ds',  name: '电水壶', icon: '♨',  cup: true,  gaiwan: true,  desc: '食品级不锈钢，提供沸水' },
-  { id: 'dz',  name: '电子秤', icon: '⚖',  cup: true,  gaiwan: true,  desc: '感量0.1g，精确称取茶样' },
+  { id: 'dz',  name: '电子秤/天平', icon: '⚖',  cup: true,  gaiwan: true,  desc: '感量0.1g，精确称取茶样' },
   { id: 'pm',  name: '品茗杯', icon: '☕',  cup: true,  gaiwan: true,  desc: '滋味评审分茶品饮用（辅助器具，非标准强制）' },
   { id: 'gw',  name: '盖碗',   icon: '🍶',  cup: false, gaiwan: true,  desc: '乌龙茶用110mL倒钟形盖碗，带盖' },
   { id: 'cc',  name: '茶宠',   icon: '🐉',  cup: false, gaiwan: false, desc: '茶艺摆件，无审评功能' },
@@ -160,11 +160,13 @@ function genNormQuestions(teaKey, method) {
 
   var C = [
     { id: 'c1', text: '按汤色→香气→滋味→叶底顺序审评',                          correct: true,  desc: 'GB/T 23776规定的标准内质审评顺序' },
-    { id: 'c2', text: '热嗅杯盖/碗盖香，温嗅杯底/碗底香',                        correct: true,  desc: '趁热嗅香，降温后再嗅辨别香型和持久性' },
-    { id: 'c3', text: '叶底倒入叶底盘展开查看',                                  correct: true,  desc: '加清水展开，观察嫩度匀度色泽' },
-    { id: 'c4', text: '用审评杯/盖碗直接喝茶',                                   correct: false, desc: '茶汤应沥入审评碗或分入品茗杯后品饮' },
-    { id: 'c5', text: '只嗅一次香气',                                            correct: false, desc: '需热嗅+温嗅，盖碗法每泡出汤前还需嗅盖香' },
-    { id: 'c6', text: '叶底留在杯中不查看',                                      correct: false, desc: '叶底是五因子之一，必须倒出查看不得省略' }
+    { id: 'c2', text: '热嗅',                                                      correct: true,  desc: '出汤后趁热嗅杯盖/碗盖香气' },
+    { id: 'c3', text: '温嗅',                                                      correct: true,  desc: '降温后嗅杯底/碗底香气，辨别香型' },
+    { id: 'c4', text: '冷嗅',                                                      correct: true,  desc: '完全冷却后嗅香气，评价香气持久性' },
+    { id: 'c5', text: '叶底倒入叶底盘展开查看',                                  correct: true,  desc: '加清水展开，观察嫩度匀度色泽' },
+    { id: 'c6', text: '用审评杯/盖碗直接喝茶',                                   correct: false, desc: '茶汤应沥入审评碗或分入品茗杯后品饮' },
+    { id: 'c7', text: '只嗅一次香气',                                            correct: false, desc: '需热嗅+温嗅+冷嗅，全面评价香气' },
+    { id: 'c8', text: '叶底留在杯中不查看',                                      correct: false, desc: '叶底是五因子之一，必须倒出查看不得省略' }
   ];
 
   return { A: A, B: B, C: C };
@@ -182,7 +184,7 @@ function genSteps(teaKey, method) {
       { id: 's3', name: '沸水冲泡',       desc: '注满沸水加盖，计时器精确到秒开始计时' },
       { id: 's4', name: '定时出汤',       desc: '冲泡' + tea.cupTime + '后杯盖留缝，等速滤入240mL审评碗' },
       { id: 's5', name: '看汤色',         desc: '审评碗中观察茶汤颜色、明暗度、清浊度' },
-      { id: 's6', name: '嗅香气',         desc: '热嗅杯盖香，温嗅杯底香，辨别香型持久性' },
+      { id: 's6', name: '嗅香气',         desc: '热嗅、温嗅、冷嗅，辨别香型和持久性' },
       { id: 's7', name: '尝滋味',         desc: '茶汤分入品茗杯或用审评碗品饮，感受浓强度协调性' },
       { id: 's8', name: '评叶底',         desc: '茶渣倒入黑色叶底盘，加清水展开观察嫩度匀度色泽' }
     ];
